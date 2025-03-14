@@ -1,0 +1,52 @@
+name: Deploy and Expose with ngrok
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the 'main' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code from GitHub
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up your environment (Node.js example, adjust as needed)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      # Step 3: Install dependencies for your app
+      - name: Install dependencies
+        run: npm install  # Adjust this for your environment (e.g., `pip install` for Python)
+
+      # Step 4: Start your application (example for Node.js app)
+      - name: Start the application
+        run: |
+          nohup npm start &  # Adjust this for your app (e.g., `python app.py` for a Python app)
+
+      # Step 5: Install ngrok (following your local setup)
+      - name: Install ngrok
+        run: |
+          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+          sudo mv ngrok /usr/local/bin/ngrok
+
+      # Step 6: Authenticate ngrok (use your secret from GitHub)
+      - name: Authenticate ngrok
+        run: ngrok authtoken 2uJfO7VUrt2NAhbMJDCjL5Ew9lN_6kVqUZYeJZLxocvfUnnY3
+
+      # Step 7: Start ngrok to expose the app on port 8080
+      - name: Start ngrok tunnel
+        run: |
+          ngrok http 8080 > /dev/null &  # Adjust the port based on where your app is running
+
+      # Step 8: Get ngrok public URL
+      - name: Get ngrok public URL
+        run: |
+          curl --silent --show-error --fail http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url'
+
