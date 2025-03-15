@@ -16,6 +16,9 @@ body, html {height: 100%; margin: 0;}
     height: 100%;
     object-fit: cover;
     z-index: -1;
+    background-image: url("/wp-content/uploads/2025/03/futuristic-technology-frame.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .home .theme-container {
