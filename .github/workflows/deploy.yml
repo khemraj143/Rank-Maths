@@ -19,7 +19,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.1.0
       with:
         ftp-server: ftp://ftpupload.net:21    # Explicitly set FTP server with port 21
-        ftp-username: ${{ secrets.FTP_USERNAME }}   # FTP Username from secrets
-        ftp-password: ${{ secrets.FTP_PASSWORD }}   # FTP Password from secrets
+        ftp-username: icei_38523038
+        ftp-password: PAiKLe7DSH2l
         local-dir: ./Rank-Maths    # Local directory to upload (change to your folder)
         server-dir: /htdocs        # Remote directory to upload files (replace in /htdocs)
