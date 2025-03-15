@@ -30,7 +30,8 @@ define( 'DB_USER', 'icei_38523038' );
 define( 'DB_PASSWORD', 'PAiKLe7DSH2l' );
 
 /** Database hostname */
-define( 'DB_HOST', 'sql304.iceiy.com' );
+//define( 'DB_HOST', 'sql304.iceiy.com' );
+define( 'DB_HOST', 'localhost' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
