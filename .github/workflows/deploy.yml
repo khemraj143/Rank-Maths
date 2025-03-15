@@ -3,25 +3,23 @@ name: FTP Deployment
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch (adjust if you use a different branch)
+      - main  # Trigger the deployment when pushing to the main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout code from the repository
+    # Checkout the repository code
     - name: Checkout code
       uses: actions/checkout@v3
 
-    # Set up FTP deployment using actions
+    # Deploy files to FTP server
     - name: Upload to FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.1.0
       with:
-        ftp-server: ftp://ftpupload.net
-        ftp-username: icei_38523038
-        ftp-password: PAiKLe7DSH2l
-        local-dir: ./  # Path to the local files to upload (current directory in this case)
-        server-dir: /htdocs  # Destination directory on the server
-
-    # Optionally, you can add more steps to run tests, build, etc.
+        ftp-server: ftp://ftpupload.net:21    # Explicitly set FTP server with port 21
+        ftp-username: ${{ secrets.FTP_USERNAME }}   # FTP Username from secrets
+        ftp-password: ${{ secrets.FTP_PASSWORD }}   # FTP Password from secrets
+        local-dir: ./Rank-Maths    # Local directory to upload (change to your folder)
+        server-dir: /htdocs        # Remote directory to upload files (replace in /htdocs)
