@@ -1,0 +1,30 @@
+name: FTP Deploy
+
+on:
+  push:
+    branches:
+      - main  # This will run the action every time there is a push to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # This checks out your repository code
+
+      - name: Install FTP Client
+        run: sudo apt-get install lftp  # Installs the FTP client to interact with the server
+
+      - name: FTP Deploy
+        run: |
+          lftp -f "
+          open ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST
+          lcd ./  # Local directory to upload
+          cd /htdocs  # Remote directory to upload to
+          mirror -R ./ ./  # Mirror the current directory to the remote folder
+          quit
+          "
+        env:
+          FTP_USER: icei_38523038  # Replace with your FTP username
+          FTP_PASSWORD: PAiKLe7DSH2l  # Replace with your FTP password
+          FTP_HOST: ftpupload.net  # Replace with your FTP host
