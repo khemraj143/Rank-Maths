@@ -21,7 +21,7 @@ jobs:
           open ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST
           lcd ./  # Local directory to upload
           cd /htdocs  # Remote directory to upload to
-          mirror -R ./ ./  # Mirror the current directory to the remote folder
+          mirror -R ./ ./htdocs  # Mirror the current directory to the remote folder
           quit
           "
         env:
